@@ -1,0 +1,41 @@
+name: Auto-bump RockDesk Cask
+
+on:
+  schedule:
+    # Check rockd-latest.json every 6 hours
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check rockd-latest.json and update Cask if newer
+        id: check
+        run: |
+          CURRENT="$(grep -oE 'version "[^"]+"' Casks/rockdesk.rb | head -1 | cut -d'"' -f2)"
+          LATEST="$(curl -fsSL https://rockdesk.io/rockd-latest.json | python3 -c 'import sys,json; print(json.load(sys.stdin)["version"])')"
+          echo "Current Cask version: ${CURRENT}"
+          echo "Latest release version: ${LATEST}"
+          if [ "${CURRENT}" = "${LATEST}" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          chmod +x scripts/update_cask.sh
+          ./scripts/update_cask.sh
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "version=${LATEST}" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push updated Cask
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config user.name "rockdesk-bot"
+          git config user.email "bot@rockdesk.io"
+          git add Casks/rockdesk.rb
+          git commit -m "Update rockdesk cask to v${{ steps.check.outputs.version }}"
+          git push
