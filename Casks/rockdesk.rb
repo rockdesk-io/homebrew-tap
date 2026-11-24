@@ -1,9 +1,9 @@
 cask "rockdesk" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "1.0.19"
-  sha256 arm:   "9b8882b7208c8db9ce5d4eca22c8ef5d275ee1f04f125efc271989cf5e7ad2f9",
-         intel: "3881878937e1bdda88e15fa5207801f776964540af6cc7563923236533a3a564"
+  version "1.0.20"
+  sha256 arm:   "42af78d7036fe88c2a3aebf42a99d25b58459afb76fbd2d2f6c79557eec11e89",
+         intel: "65bffabd27cfc0a1cb289a619163793f6bca976c145314dabe548a8072b2fb59"
 
   url "https://rockdesk.io/download/rockdesk-#{version}-macos-#{arch}.dmg"
   name "RockDesk"
