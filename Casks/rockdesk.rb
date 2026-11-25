@@ -1,11 +1,11 @@
 cask "rockdesk" do
   arch arm: "arm64", intel: "x86_64"
 
-  version "1.0.20"
-  sha256 arm:   "97ee14587202e5140015a69241f21c5fb9c3dd5023eb707d0c9728bc0fe08a69",
-         intel: "b5a70ce7a4a4d77dfa6c663c49f451ece27d4fe089fae74b434202c7f36c56e3"
+  version "1.0.21"
+  sha256 arm:   "c653c6b9ea1f29435a6c730ed9a098557c69b19501c7b58a1b87f9d29ef8e3f8",
+         intel: "2387c9363a4cb65221f2778a8be72a4eddbb2fda196c92ab535c4d10a08eef17"
 
-  url "https://rockdesk.io/download/rockdesk-#{version}-macos-#{arch}.dmg?b=a27fed6"
+  url "https://rockdesk.io/download/rockdesk-#{version}-macos-#{arch}.dmg"
   name "RockDesk"
   desc "P2P remote desktop, 1-RTT FUSE mount, CLI and native MCP server via 9-digit ID"
   homepage "https://rockdesk.io/"
